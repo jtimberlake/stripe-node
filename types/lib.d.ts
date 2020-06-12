@@ -6,16 +6,19 @@ import {Agent} from 'http';
 declare module 'stripe' {
   namespace Stripe {
     export class StripeResource {
-      static extend<T>(
-        spec: T
-      ): StripeResource & {
-        includeBasic?: Array<'create' | 'retrieve' | 'update' | 'list' | 'del'>;
-      } & T;
+      static extend<
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        T extends {[prop: string]: any} & {
+          includeBasic?: Array<
+            'create' | 'retrieve' | 'update' | 'list' | 'del'
+          >;
+        }
+      >(spec: T): StripeResource & T;
       static method(spec: {
         method: string;
         path: string;
-        methodType: string;
-      }): (...any) => object;
+        methodType?: 'list';
+      }): (...args: any[]) => object; //eslint-disable-line @typescript-eslint/no-explicit-any
       static BASIC_METHODS: {
         create<T>(
           params: CouponCreateParams,

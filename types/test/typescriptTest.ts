@@ -139,4 +139,10 @@ const stripeCardError: Stripe.StripeCardError = Stripe.errors.generate({
   charge: 'ch_123',
 });
 
-const stripeResource: Stripe.StripeResource = Stripe.StripeResource;
+Stripe.StripeResource.extend({
+  includeBasic: ['retrieve'],
+  foo: Stripe.StripeResource.method({
+    method: 'create',
+    path: 'foo',
+  }),
+});
