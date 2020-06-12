@@ -138,3 +138,5 @@ const stripeCardError: Stripe.StripeCardError = Stripe.errors.generate({
   code: 'card_declined',
   charge: 'ch_123',
 });
+
+const stripeResource: Stripe.StripeResource = Stripe.StripeResource;

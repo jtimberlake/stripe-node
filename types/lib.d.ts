@@ -5,6 +5,39 @@ import {Agent} from 'http';
 
 declare module 'stripe' {
   namespace Stripe {
+    export class StripeResource {
+      static extend<T>(
+        spec: T
+      ): StripeResource & {
+        includeBasic?: Array<'create' | 'retrieve' | 'update' | 'list' | 'del'>;
+      } & T;
+      static method(spec: {
+        method: string;
+        path: string;
+        methodType: string;
+      }): (...any) => object;
+      static BASIC_METHODS: {
+        create<T>(
+          params: CouponCreateParams,
+          options?: RequestOptions
+        ): Promise<T>;
+        retrieve<T>(
+          id: string,
+          params?: CouponRetrieveParams,
+          options?: RequestOptions
+        ): Promise<T>;
+        update<T>(
+          id: string,
+          params?: CouponUpdateParams,
+          options?: RequestOptions
+        ): Promise<T>;
+        list<T>(
+          params?: CouponListParams,
+          options?: RequestOptions
+        ): ApiListPromise<T>;
+        del<T>(id: string, options?: RequestOptions): Promise<T>;
+      };
+    }
     export type LatestApiVersion = '2020-03-02';
     export type HttpAgent = Agent;
 
